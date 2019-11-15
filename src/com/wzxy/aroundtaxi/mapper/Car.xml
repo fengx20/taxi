@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+	<mapper namespace="com.wzxy.aroundtaxi.mapper.CarMapper">
+	    <insert id="add" parameterType="Car" >
+	        insert into car ( carnum,owner_phonenum,owner,cartype,carimg ) values (#{0},#{1},#{2},#{3},#{4})    
+	    </insert>
+     
+	    <select id="list" parameterType="String" resultType="map">
+	       call Getdrmes(#{0});         
+	    </select>
+	    
+	    <select id="selectcar" parameterType="String" resultType="boolean">
+	        select ifnull((select carnum from car where carnum = #{0}),false)      
+	    </select>	
+	    
+	     <select id="list_web" resultType="Car">
+	        select * from car       
+	    </select>
+	    
+	</mapper>    

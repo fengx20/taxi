@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.wzxy.aroundtaxi.mapper.PassengerMapper">
+	    <insert id="add" parameterType="String" >
+	        insert into passenger ( phonenum,password ) values (#{0},#{1})    
+	    </insert>
+	    
+	    <select id="selectfull" parameterType="String" resultType="Passenger">
+	        select name,sex,birth from passenger where phonenum = #{0}
+	    </select>
+	    
+	    <delete id="delete" parameterType="String" >
+	        delete from passenger where phonenum= #{phonenum}   
+	    </delete>
+	   
+	    <update id="updatefull" parameterType="String" >
+	       update passenger set name=#{0},sex=#{1},birth=#{2} where phonenum=#{3}       
+	    </update>
+
+	    <update id="updatepwd" parameterType="String" >
+	        update passenger set password=#{1} where phonenum=#{0}    
+	    </update>
+	    
+	     <select id="exist" resultType="boolean">
+	       select ifnull((select phonenum from passenger where phonenum = #{phonenum}),false)  
+	    </select>
+	    
+	    <select id="login" resultType="boolean">
+	       select ifnull((select phonenum from passenger where phonenum = #{0} and password = #{1}),false)  
+	    </select>
+	    
+	    
+	    
+	    
+	     <insert id="add_web" parameterType="String"  >
+	        insert into passenger ( phonenum,password,name,sex,birth ) values (#{0},#{1},#{2},#{3},#{4})    
+	    </insert>
+	    
+	    <update id="update_web" parameterType="String" >
+	       update passenger set password=#{0},name=#{1},sex=#{2},birth=#{3} where phonenum=#{4}       
+	    </update>
+	    
+	     <delete id="delete_web" parameterType="String" >
+	        delete from passenger where phonenum= #{0}   
+	    </delete>
+	    
+	    <select id="list_web" resultType="Passenger">
+	        select * from passenger      
+	    </select>
+	    
+	    <select id="listbyph_web" parameterType="String" resultType="Passenger">
+	        select * from passenger where phonenum=#{0}     
+	    </select>	    
+	    
+	    
+	</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.wzxy.aroundtaxi.mapper.ManagerMapper">
+
+        <insert id="add_web" parameterType="Manager"  >
+	        insert into manager ( username,password,phonenum ) values (#{0},#{1},#{2})    
+	    </insert>
+	    
+	    <update id="update_web" >
+	       update manager set password=#{1} where phonenum=#{0}       
+	    </update>
+	    
+	     <delete id="delete_web" parameterType="String" >
+	        delete from manager where username= #{0}   
+	    </delete>
+	    
+	    <select id="select_web" parameterType="String" resultType="boolean" >
+	        select ifnull((select username from manager where username=#{0} and password=#{1}),false)     
+	    </select>
+	    
+	    <select id="list_web" resultType="Manager">
+	        select * from manager      
+	    </select>
+	    
+	    <select id="listbyuser_web" parameterType="String" resultType="Manager">
+	        select * from manager where username=#{0}     
+	    </select>
+	    
+  </mapper>	    

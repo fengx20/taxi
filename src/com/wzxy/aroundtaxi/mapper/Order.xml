@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.wzxy.aroundtaxi.mapper.OrderMapper">
+	    <select id="selectexist" parameterType="String" resultType="boolean">
+	        select ifnull((select pa_phonenum from order_pd where pa_phonenum = #{0}),false)  
+	    </select>
+	
+	    <insert id="add" parameterType="String" >
+	        insert into order_pd ( pa_phonenum ) values (#{0})    
+	    </insert>
+	    
+	    <select id="select" parameterType="String" resultType="String">
+	        select dr_phonenum from order_pd where pa_phonenum = #{0}
+	    </select>
+	    
+	    <delete id="delete" parameterType="String">
+	        delete from order_pd where pa_phonenum = #{0}
+	    </delete>
+	    
+	    
+	    
+	    
+	    <update id="update" parameterType="String" >
+	        update order_pd set dr_phonenum=#{0} where pa_phonenum=#{1}    
+	    </update>
+
+	    <select id="selectpa" parameterType="String" resultType="boolean">
+	        select ifnull((select dr_phonenum from order_pd where pa_phonenum = #{0}),false)  
+	    </select>
+	    
+
+    </mapper>
