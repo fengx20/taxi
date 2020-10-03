@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="com.wzxy.aroundtaxi.mapper.DrAddressMapper">
-	     <select id="selectph_dradd" parameterType="String" resultType="boolean">
+<mapper namespace="com.wzxy.aroundtaxi.mapper.DrAddressMapper">
+    <select id="selectph_dradd" parameterType="String" resultType="boolean">
 	       select ifnull((select dr_phonenum from dr_address where dr_phonenum = #{0}),false)  
 	     </select>
-	
-	    <insert id="add"  >
+
+    <insert id="add">
 	        insert into dr_address ( dr_phonenum,longitude,latitude,status ) values (#{0},#{1},#{2},#{3})    
 	    </insert>
-	    
-	    <select id="select_dr" resultType="DrAddress">
+
+    <select id="select_dr" resultType="DrAddress">
 	      call Text(#{0},#{1});
 	     </select>
-	     
-	     <select id="select_dradd" parameterType="String" resultType="DrAddress">
+
+    <select id="select_dradd" parameterType="String" resultType="DrAddress">
 	       select longitude,latitude from dr_address where dr_phonenum = #{0}
 	     </select>
-	     
-	    <update id="update_address" parameterType="String">
+
+    <update id="update_address" parameterType="String">
    	        update dr_address set longitude=#{0},latitude=#{1},status="空车" where dr_phonenum=#{2}    
 	    </update>
-	    
-	     <update id="update_start" parameterType="String">
+
+    <update id="update_start" parameterType="String">
    	        update dr_address set status="空车" where dr_phonenum=#{0}    
 	    </update>
-	    
-	    <update id="update_end" parameterType="String">
+
+    <update id="update_end" parameterType="String">
    	        update dr_address set status="满车" where dr_phonenum=#{0}    
 	    </update>
-	    
-	</mapper>
+
+</mapper>

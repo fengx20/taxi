@@ -1,14 +1,21 @@
 package com.wzxy.aroundtaxi.service.impl;
 
+import java.io.IOException;
+import java.util.Random;
+
 //import java.io.IOException;
 //import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import com.shuyuanwl.sms.api.bean.DownRes;
+import com.shuyuanwl.sms.api.core.ApiSender;
 import com.wzxy.aroundtaxi.mapper.DriverMapper;
 import com.wzxy.aroundtaxi.mapper.PassengerMapper;
 import com.wzxy.aroundtaxi.mapper.YzmMapper;
+import com.wzxy.aroundtaxi.pojo.Yzm;
 //import com.wzxy.aroundtaxi.pojo.Yzm;
 import com.wzxy.aroundtaxi.service.AppUserService;
 
@@ -44,12 +51,38 @@ public class AppUserServiceImpl implements AppUserService {
 
 	/**
 	 * 发送验证码并保存
-	 *//*
-		 * @Override public String send_yzm(String Phonenum) throws IOException { String
-		 * result=""; try { //生成6位验证码 String yzmcode = String.valueOf(new
-		 * Random().nextInt(899999) + 100000); 
-		 * }catch (Exception e) { e.printStackTrace(); } return result; }
-		 */
+	 */
+	public String send_yzm(String Phonenum) throws IOException{
+	String result="";
+	try {
+		//生成6位验证码
+	    String yzmcode = String.valueOf(new Random().nextInt(899999) + 100000);	
+	    String url = "http://api.shuyuanwl.com:8080/api/sms/send";
+		String mobiles = Phonenum; //号码
+		String content = "【Worker】您的验证码是："+yzmcode;//短信内容
+		String account = "wzdskj@wzdskj"; //账号
+		String extno = "01"; //扩展码
+		String password = "USLd7Y8p";//密码
+		String batchno = "";//批次号
+		DownRes res = ApiSender.send(url, account, password, mobiles, content, extno,batchno);
+		System.out.println(res);
+		String code = res.getCode();   //获得code的值
+		System.out.println(code); 
+		
+		Yzm yzm = new Yzm();
+		yzm.setPhonenum(Phonenum);
+		yzm.setCode(yzmcode);
+		
+		if(code.equals("200")) {
+		    ym.add(yzm);
+		}
+        result = code;
+		
+	}catch (Exception e) {
+        e.printStackTrace();
+     }
+	return result;
+	}
 	/**
 	 * 验证码验证
 	 */

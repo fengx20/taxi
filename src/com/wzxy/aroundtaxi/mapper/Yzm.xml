@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="com.wzxy.aroundtaxi.mapper.YzmMapper">
-	    
-	    <insert id="add" parameterType="Yzm">
+<mapper namespace="com.wzxy.aroundtaxi.mapper.YzmMapper">
+
+    <insert id="add" parameterType="Yzm">
 	        insert into yzm ( phonenum,code ) values (#{phonenum},#{code})
 	    </insert>
-	    
-	    <select id="compare" resultType="boolean">
+
+    <select id="compare" resultType="boolean">
 	        select ifnull((select code from yzm where phonenum = #{0} and code = #{1}),false)    
-	    </select>	
-	    
-	    <delete id="delete" parameterType="String">
+	    </select>
+
+    <delete id="delete" parameterType="String">
 	       delete from yzm where phonenum= #{0}   
-	    </delete>    
-	</mapper>
+	    </delete>
+</mapper>

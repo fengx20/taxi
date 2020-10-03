@@ -1,77 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="com.wzxy.aroundtaxi.mapper.DriverMapper">
-	
-	    <insert id="adddrph" parameterType="String">
+<mapper namespace="com.wzxy.aroundtaxi.mapper.DriverMapper">
+
+    <insert id="adddrph" parameterType="String">
 	       insert into driver ( phonenum,status ) values (#{0},"未提交审核司机")
 	    </insert>
-	
-	    <update id="update" parameterType="String" >
+
+    <update id="update" parameterType="String">
 	       update driver set jobnum=#{0},idnum=#{1},name=#{2},driverage=#{3},status="未审核司机"  where phonenum=#{4}       
 	    </update>
-	    
-	    
-	    
-	     <select id="select_result" parameterType="String" resultType="boolean">
+
+
+    <select id="select_result" parameterType="String" resultType="boolean">
 	        select ifnull((select phonenum from driver where phonenum = #{0} and status="正式司机"  ),false)      
-	    </select>	
-	    
-	    <select id="select_resultno" parameterType="String" resultType="boolean">
+	    </select>
+
+    <select id="select_resultno" parameterType="String" resultType="boolean">
 	        select ifnull((select phonenum from driver where phonenum = #{0} and status="未提交审核司机"),false)      
-	    </select>	
-	    
-	    <update id="updatefull" parameterType="String" >
+	    </select>
+
+    <update id="updatefull" parameterType="String">
 	       update driver set sex=#{0},birth=#{1} where phonenum=#{2}       
 	    </update>
-	    
-	    <select id="list" parameterType="String" resultType="Driver">
+
+    <select id="list" parameterType="String" resultType="Driver">
 	        select phonenum,jobnum from driver where phonenum = #{phonenum}      
-	    </select>	
-	    
-	    <select id="selectph" parameterType="String" resultType="boolean">
+	    </select>
+
+    <select id="selectph" parameterType="String" resultType="boolean">
 	        select ifnull((select phonenum from driver where phonenum = #{phonenum}),false)      
 	    </select>
-	    
-	    
-	    
-	    
-	     <update id="update_st" parameterType="String" >
+
+
+    <update id="update_st" parameterType="String">
 	       update driver set  status="正式司机"   where phonenum=#{0}       
 	    </update>
-	    
-	    <update id="stop_st" parameterType="String" >
+
+    <update id="stop_st" parameterType="String">
 	       update driver set  status="未审核司机"   where phonenum=#{0}       
 	    </update>
-	    
-	     <select id="select_sh" parameterType="String" resultType="Driver">
+
+    <select id="select_sh" parameterType="String" resultType="Driver">
 	        select * from driver where status="未审核司机"     
 	    </select>
-	    
-	    <insert id="add_web" parameterType="String"  >
+
+    <insert id="add_web" parameterType="String">
 	        insert into driver ( phonenum,jobnum,idnum,driverage,name,sex,birth,status ) values (#{0},#{1},#{2},#{3},#{4},#{5},#{6},'未审核司机')    
 	    </insert>
-	    <!-- 测试 -->
-	    <insert id="addmes" parameterType="String"  >
+    <!-- 测试 -->
+    <insert id="addmes" parameterType="String">
 	        insert into driver ( phonenum,jobnum  ) values (#{0},#{1})    
 	    </insert>
-	    
-	    <update id="update_web"  >
+
+    <update id="update_web">
 	       update driver set jobnum=#{0},idnum=#{1},driverage=#{2},name=#{3},sex=#{4},birth=#{5} where phonenum=#{6}       
 	    </update>
-	    
-	     <delete id="delete_web" parameterType="String" >
+
+    <delete id="delete_web" parameterType="String">
 	        delete from driver where phonenum= #{0}   
 	    </delete>
-	    
-	    <select id="list_web" resultType="Driver">
+
+    <select id="list_web" resultType="Driver">
 	        select * from driver where status='正式司机'     
 	    </select>
-	    
-	    <select id="listbyph_web" parameterType="String" resultType="Driver">
+
+    <select id="listbyph_web" parameterType="String" resultType="Driver">
 	        select * from driver where phonenum=#{0} and status='正式司机'    
-	    </select>	    
-	    
-	</mapper>    
+	    </select>
+
+</mapper>

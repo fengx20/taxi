@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="com.wzxy.aroundtaxi.mapper.PaAddressMapper">
-	    <insert id="add" >
+<mapper namespace="com.wzxy.aroundtaxi.mapper.PaAddressMapper">
+    <insert id="add">
 	        insert into pa_address ( pa_phonenum,longitude,latitude,status ) values (#{0},#{1},#{2},"无找车需求")    
 	    </insert>
-	    
-	    <select id="exist" resultType="boolean">
+
+    <select id="exist" resultType="boolean">
 	       select ifnull((select pa_phonenum from pa_address where pa_phonenum = #{phonenum}),false)  
 	    </select>
-	    
-	    <update id="update"  >
+
+    <update id="update">
 	        update pa_address set longitude=#{0},latitude=#{1} where pa_phonenum=#{2}    
 	    </update>
-	    
-	    <update id="update_status" parameterType="String"  >
+
+    <update id="update_status" parameterType="String">
 	        update pa_address set status="找车中" where pa_phonenum=#{0}    
 	    </update>
-	    
-	    <update id="update_nostatus" parameterType="String"  >
+
+    <update id="update_nostatus" parameterType="String">
 	        update pa_address set status="无乘车需求" where pa_phonenum=#{0}    
 	    </update>
-	    
-	    <select id="list" parameterType="String" resultType="PaAddress">
+
+    <select id="list" parameterType="String" resultType="PaAddress">
 	       select pa_phonenum,longitude,latitude from pa_address where pa_phonenum = #{0}  
 	    </select>
-	    
-	    <select id="select_pa" resultType="PaAddress">
+
+    <select id="select_pa" resultType="PaAddress">
 	      call Getallpaadd(#{0},#{1});
 	     </select>
-	    
-	</mapper>
+
+</mapper>
